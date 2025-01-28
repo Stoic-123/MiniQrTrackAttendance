@@ -1,16 +1,14 @@
-const mysql = require("mysql2/promise"); // Import mysql2 instead of mysql
+const mysql = require("mysql2/promise");
 
-// Create a connection pool (recommended for better performance)
+// Use environment variables
 const pool = mysql.createPool({
-  host: "localhost",
-  user: "root",
-  database: "qr",
-  password: "",
+  host: process.env.DB_HOST || "localhost",
+  user: process.env.DB_USER || "root",
+  database: process.env.DB_NAME || "qr",
+  password: process.env.DB_PASSWORD || "",
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0,
 });
-
-// Promisify the pool.query method (not necessary for mysql2, but included for compatibility)
 
 module.exports = { pool };
